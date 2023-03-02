@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GhostVpn</string>
+    <string name="launcher_tip">GhostProxy</string>
+    <string name="launcher_start">Start</string>
+    <string name="launcher_desc">Professional, fast and Free</string>
+    <string name="launcher_privacy">Privacy Policy</string>
+    <string name="launcher_privacy_desc">You should agree with \"Privacy Policy\"</string>
+    <string name="launch_privacy_agreement">Please read the Privacy Policy first and tick it!</string>
 </resources>
