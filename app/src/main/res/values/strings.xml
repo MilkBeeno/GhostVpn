@@ -11,4 +11,7 @@
     <string name="launcher_notification_desc">You can modify notification permissions  in \"Settings - Notification and Status Bar\"</string>
     <string name="launcher_notification_confirm">Allow</string>
     <string name="launcher_notification_refuse">Reject</string>
+    <string name="my_title">GhostProxy</string>
+    <string name="my_desc">Copyright © 2022 Apple Inc. All rights reserved.</string>
+    <string name="my_privacy">Privacy Policy</string>
 </resources>
