@@ -14,4 +14,8 @@
     <string name="my_title">GhostProxy</string>
     <string name="my_desc">Copyright © 2022 Apple Inc. All rights reserved.</string>
     <string name="my_privacy">Privacy Policy</string>
+    <string name="main_free">Free Services</string>
+    <string name="main_disconnect">Disconnect</string>
+    <string name="main_connect">Connect</string>
+    <string name="common_auto_connect">Auto Select</string>
 </resources>

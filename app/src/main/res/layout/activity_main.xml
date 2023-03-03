@@ -6,4 +6,120 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/flBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_main_background">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/main_background" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flHeader"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivMenu"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:padding="10dp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivShare"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="5dp"
+            android:padding="10dp" />
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="29dp"
+        app:layout_constraintTop_toBottomOf="@+id/flHeader">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivCountry"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/circleStyle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/FF333333"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvFree"
+            app:layout_constraintStart_toEndOf="@+id/ivCountry"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@string/main_free"
+            android:textColor="@color/FF333333_30"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvCountry"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="21dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="19dp"
+            android:src="@drawable/mian_switch_enter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivConnectBackground"
+        android:layout_width="match_parent"
+        android:layout_height="307dp"
+        android:layout_marginTop="29dp"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@+id/clSwitch" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivConnect"
+        android:layout_width="288dp"
+        android:layout_height="288dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clSwitch" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvConnect"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivConnect" />
 </androidx.constraintlayout.widget.ConstraintLayout>
