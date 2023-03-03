@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.simple.ghostvpn.R
@@ -42,10 +43,19 @@ class LottieActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true)
+            return false
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
     companion object {
         private const val FROM_LAUNCHER = "FROM_LAUNCHER"
         fun start(context: Context, fromLauncher: Boolean) {
             val intent = Intent(context, LottieActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra(FROM_LAUNCHER, fromLauncher)
             context.startActivity(intent)
         }
