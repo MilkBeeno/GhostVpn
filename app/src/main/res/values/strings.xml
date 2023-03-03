@@ -6,4 +6,9 @@
     <string name="launcher_privacy">Privacy Policy</string>
     <string name="launcher_privacy_desc">You should agree with \"Privacy Policy\"</string>
     <string name="launch_privacy_agreement">Please read the Privacy Policy first and tick it!</string>
+    <string name="lottie_content">Connected and Fetch server list ...</string>
+    <string name="launcher_notification_title">Allow \"Ghostproxy\" to send  notifications?</string>
+    <string name="launcher_notification_desc">You can modify notification permissions  in \"Settings - Notification and Status Bar\"</string>
+    <string name="launcher_notification_confirm">Allow</string>
+    <string name="launcher_notification_refuse">Reject</string>
 </resources>

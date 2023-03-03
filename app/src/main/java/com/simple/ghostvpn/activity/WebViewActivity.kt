@@ -19,9 +19,11 @@ class WebViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
         immersiveStatusBar(false)
+
         ivBack = findViewById(R.id.ivBack)
         ivBack.statusBarPadding()
         ivBack.setOnClickListener { finish() }
+
         webView = findViewById(R.id.webView)
         webView.loadUrl(URL)
         webView.webViewClient = object : WebViewClient() {
@@ -34,7 +36,8 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val URL = "https://res.openvpnsafeconnect.com/PrivacyPolicy.html"
+        private const val URL =
+            "https://res.openvpnsafeconnect.com/PrivacyPolicy.html"
         fun start(context: Context) {
             context.startActivity(Intent(context, WebViewActivity::class.java))
         }

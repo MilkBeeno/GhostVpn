@@ -16,6 +16,7 @@ import com.milk.simple.log.Logger
 import com.milk.simple.mdr.KvManger
 import com.simple.ghostvpn.R
 import com.simple.ghostvpn.constant.KvKey
+import com.simple.ghostvpn.dialog.NotificationDialog
 import com.simple.ghostvpn.repository.AppRepository
 import java.security.MessageDigest
 
@@ -24,6 +25,8 @@ class LauncherActivity : AppCompatActivity(), OnClickListener {
     private lateinit var ivSelect: AppCompatImageView
     private lateinit var tvStart: AppCompatTextView
     private lateinit var tvPrivacy: AppCompatTextView
+
+    private val dialog by lazy { NotificationDialog() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +37,19 @@ class LauncherActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun initView() {
-        rootView = findViewById(R.id.rootView)
         if (KvManger.getBoolean(KvKey.FIRST_ENTER, true)) {
-            rootView.visible()
-            // 沉浸式状态栏
             immersiveStatusBar()
+
+            rootView = findViewById(R.id.rootView)
+            rootView.visible()
+
             ivSelect = findViewById(R.id.ivSelect)
             ivSelect.isSelected = true
             ivSelect.setOnClickListener(this)
+
             tvStart = findViewById(R.id.tvStart)
             tvStart.setOnClickListener(this)
+
             tvPrivacy = findViewById(R.id.tvPrivacy)
             tvPrivacy.setSpannableClick(
                 Pair(string(R.string.launcher_privacy),
@@ -51,16 +57,14 @@ class LauncherActivity : AppCompatActivity(), OnClickListener {
                         WebViewActivity.start(this)
                     })
             )
-            // 获取通知权限
+
             if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-//            openNotificationDialog.show()
-//            openNotificationDialog.setConfirm {
-//                NotificationManager.obtainNotification(this)
-//            }
+                val ft = supportFragmentManager.beginTransaction()
+                dialog.show(ft, "Notification")
             }
+
             KvManger.put(KvKey.FIRST_ENTER, false)
         } else {
-            rootView.gone()
             LottieActivity.start(this, true)
             finish()
         }
@@ -90,7 +94,9 @@ class LauncherActivity : AppCompatActivity(), OnClickListener {
                 if (ivSelect.isSelected) {
                     MainActivity.start(this)
                     finish()
-                } else showToast(string(R.string.launch_privacy_agreement))
+                } else {
+                    showToast(string(R.string.launch_privacy_agreement))
+                }
             }
         }
     }
