@@ -8,21 +8,69 @@ import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.simple.ghostvpn.R
+import com.simple.ghostvpn.ad.AppOpenAdHelper
+import com.simple.ghostvpn.repository.AppRepository
+import com.simple.ghostvpn.util.MyTimer
 
 class LottieActivity : AppCompatActivity() {
+    private val appOpenAdHelper by lazy { AppOpenAdHelper() }
     private lateinit var lottieView: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lottie)
         initView()
-        addAnimationListener()
+        if (AppRepository.showOpenAd) {
+            loadInterstitialAd()
+        } else {
+            addAnimationListener()
+        }
     }
 
     private fun initView() {
         lottieView = findViewById(R.id.lottieView)
         lottieView.setAnimation("open_loading.json")
         lottieView.playAnimation()
+    }
+
+    private fun loadInterstitialAd() {
+        MyTimer.Builder()
+            .setCountDownInterval(1000)
+            .setMillisInFuture(12000)
+            .setOnFinishedListener {
+                if (!appOpenAdHelper.isShowSuccessfulAd()) {
+                    end()
+                }
+            }
+            .build()
+            .run()
+        appOpenAdHelper.load(
+            context = this,
+            failure = {
+                end()
+            },
+            success = {
+                showInterstitialAd()
+            }
+        )
+    }
+
+    private fun showInterstitialAd() {
+        appOpenAdHelper.show(
+            activity = this,
+            failure = {
+                end()
+            },
+            success = {
+
+            },
+            click = {
+
+            },
+            close = {
+                end()
+            }
+        )
     }
 
     private fun addAnimationListener() {

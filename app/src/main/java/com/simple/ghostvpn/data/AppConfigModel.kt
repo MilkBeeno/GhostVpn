@@ -3,22 +3,22 @@ package com.simple.ghostvpn.data
 import com.google.gson.annotations.SerializedName
 
 data class AppConfigModel(
-    @SerializedName("Vw2345671")
+    @SerializedName("vvvdc321")
     var share_copy: String = "",
-    @SerializedName("Vw2345672")
+    @SerializedName("vvvdc322")
     var Shield_app_bundle: String = "",
-    @SerializedName("Vw2345673")
+    @SerializedName("vvvdc323")
     var mainNativeAd: String = "",
-    @SerializedName("Vw2345674")
+    @SerializedName("vvvdc324")
     var openAd: String = "",
-    @SerializedName("Vw2345675")
+    @SerializedName("vvvdc325")
     var connectedInsertAd: String = "",
-    @SerializedName("Vw2345676")
+    @SerializedName("vvvdc326")
     var connectedNativeAd: String = "",
-    @SerializedName("Vw2345677")
+    @SerializedName("vvvdc327")
     var disconnectInsertAd: String = "",
-    @SerializedName("Vw2345678")
+    @SerializedName("vvvdc328")
     var disconnectNativeAd: String = "",
-    @SerializedName("Vw2345679")
+    @SerializedName("vvvdc329")
     var switchNativeAd: String = "",
 )
