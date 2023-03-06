@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.milk.simple.ktx.*
 import com.simple.ghostvpn.R
+import com.simple.ghostvpn.ad.view.MainNativeAdView
 import com.simple.ghostvpn.repository.AppRepository
 
 class MainActivity : AppCompatActivity(), OnClickListener {
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private lateinit var ivConnectBackground: AppCompatImageView
     private lateinit var ivConnect: AppCompatImageView
     private lateinit var tvConnect: AppCompatTextView
+    private lateinit var nativeAdView: MainNativeAdView
 
     private var vpnNodeId: Int = 0
     private var vpnImage: String = ""
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
+        initNativeAd()
         updateCountryInfo()
         connected()
     }
@@ -58,6 +61,19 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         ivConnect.setOnClickListener(this)
         tvConnect = findViewById(R.id.tvConnect)
         tvConnect.setOnClickListener(this)
+        nativeAdView = findViewById(R.id.nativeAdView)
+    }
+
+    private fun initNativeAd() {
+        if (AppRepository.showMainNativeAd) {
+            nativeAdView.setLoadFailureRequest {
+            }
+            nativeAdView.setLoadSuccessRequest {
+            }
+            nativeAdView.setClickRequest {
+            }
+            nativeAdView.loadNativeAd()
+        }
     }
 
     private fun updateCountryInfo() {
