@@ -11,7 +11,6 @@ import com.simple.ghostvpn.R
 
 class ConnectFailureDialog(private val act: FragmentActivity) : DialogFragment() {
     private lateinit var rootView: View
-    private var onDismissListener: (() -> Unit)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,8 +26,6 @@ class ConnectFailureDialog(private val act: FragmentActivity) : DialogFragment()
         params?.height = WindowManager.LayoutParams.MATCH_PARENT
         dialog?.window?.attributes = params
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
-        dialog?.setOnDismissListener { onDismissListener?.invoke() }
-        dialog?.setOnCancelListener { onDismissListener?.invoke() }
 
         rootView = LayoutInflater.from(context)
             .inflate(R.layout.dialog_failure, null, false)
@@ -44,9 +41,6 @@ class ConnectFailureDialog(private val act: FragmentActivity) : DialogFragment()
         }
     }
 
-    fun setOnDismissListener(onDismissListener: () -> Unit) {
-        this.onDismissListener = onDismissListener
-    }
 
     fun show() {
         val fm = act.supportFragmentManager

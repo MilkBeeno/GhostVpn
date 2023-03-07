@@ -16,8 +16,6 @@ class ConnectingDialog(private val act: FragmentActivity) : DialogFragment() {
     private lateinit var tvDesc: AppCompatTextView
     private lateinit var lottieView: LottieAnimationView
 
-    private var onDismissListener: (() -> Unit)? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +30,6 @@ class ConnectingDialog(private val act: FragmentActivity) : DialogFragment() {
         params?.height = WindowManager.LayoutParams.MATCH_PARENT
         dialog?.window?.attributes = params
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
-        dialog?.setOnDismissListener { onDismissListener?.invoke() }
 
         rootView = LayoutInflater.from(context)
             .inflate(R.layout.dialog_waiting, null, false)
@@ -46,10 +43,6 @@ class ConnectingDialog(private val act: FragmentActivity) : DialogFragment() {
         lottieView.playAnimation()
         tvDesc = rootView.findViewById(R.id.tvDesc)
         tvDesc.text = context?.string(R.string.dialog_connecting_now)
-    }
-
-    fun setOnDismissListener(onDismissListener: () -> Unit) {
-        this.onDismissListener = onDismissListener
     }
 
     fun show() {
