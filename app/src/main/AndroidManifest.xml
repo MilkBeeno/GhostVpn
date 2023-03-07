@@ -24,6 +24,13 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GhostVpn"
+            tools:ignore="LockedOrientationActivity"
+            tools:replace="android:theme" />
         <!-- =================================================================== -->
         <activity
             android:name=".activity.MyActivity"
