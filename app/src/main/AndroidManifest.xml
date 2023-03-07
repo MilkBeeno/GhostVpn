@@ -18,12 +18,12 @@
         <!-- =================================================================== -->
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true" />
-        <!-- Admob 测试服 ID : ca-app-pub-3940256099942544~3347511713 -->
+            android:value="true" /> <!-- Admob 测试服 ID : ca-app-pub-3940256099942544~3347511713 -->
         <!-- Admob 正试服 ID : ca-app-pub-4684374725464850~3495272708 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
+
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
@@ -32,6 +32,11 @@
             tools:ignore="LockedOrientationActivity"
             tools:replace="android:theme" />
         <!-- =================================================================== -->
+        <activity
+            android:name=".activity.VpnListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.MyActivity"
             android:exported="false"
@@ -64,7 +69,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -11,13 +11,13 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationManagerCompat
-import com.milk.simple.ktx.*
-import com.milk.simple.log.Logger
-import com.milk.simple.mdr.KvManger
+import com.simple.ghostvpn.util.log.Logger
 import com.simple.ghostvpn.R
 import com.simple.ghostvpn.constant.KvKey
 import com.simple.ghostvpn.dialog.NotificationDialog
 import com.simple.ghostvpn.repository.AppRepository
+import com.simple.ghostvpn.util.KvManger
+import com.simple.ghostvpn.util.ktx.*
 import java.security.MessageDigest
 
 class LauncherActivity : AppCompatActivity(), OnClickListener {

@@ -8,7 +8,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.milk.simple.log.Logger
+import com.simple.ghostvpn.util.log.Logger
 import com.simple.ghostvpn.ad.unitId.InterstitialAdID
 
 class InterstitialAdHelper {

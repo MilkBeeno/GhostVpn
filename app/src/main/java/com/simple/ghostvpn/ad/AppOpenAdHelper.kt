@@ -7,7 +7,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.milk.simple.log.Logger
+import com.simple.ghostvpn.util.log.Logger
 import com.simple.ghostvpn.ad.unitId.AppOpenAdID
 
 class AppOpenAdHelper {

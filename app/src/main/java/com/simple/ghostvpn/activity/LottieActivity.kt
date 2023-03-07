@@ -75,10 +75,10 @@ class LottieActivity : AppCompatActivity() {
 
     private fun addAnimationListener() {
         lottieView.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) = Unit
-            override fun onAnimationCancel(animation: Animator?) = Unit
-            override fun onAnimationRepeat(animation: Animator?) = Unit
-            override fun onAnimationEnd(animation: Animator?) = end()
+            override fun onAnimationStart(p0: Animator) = Unit
+            override fun onAnimationEnd(p0: Animator) = end()
+            override fun onAnimationCancel(p0: Animator) = Unit
+            override fun onAnimationRepeat(p0: Animator) = Unit
         })
     }
 

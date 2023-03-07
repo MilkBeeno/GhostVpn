@@ -7,9 +7,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
-import com.milk.simple.ktx.immersiveStatusBar
-import com.milk.simple.ktx.statusBarPadding
 import com.simple.ghostvpn.R
+import com.simple.ghostvpn.util.ktx.immersiveStatusBar
+import com.simple.ghostvpn.util.ktx.statusBarPadding
 
 class WebViewActivity : AppCompatActivity() {
     private lateinit var ivBack: AppCompatImageView

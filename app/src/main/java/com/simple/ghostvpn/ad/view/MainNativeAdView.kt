@@ -7,9 +7,9 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
-import com.milk.simple.ktx.gone
 import com.simple.ghostvpn.R
 import com.simple.ghostvpn.ad.unitId.NativeAdCode
+import com.simple.ghostvpn.util.ktx.gone
 
 class MainNativeAdView : AbstractNativeAdView {
     private var loadFailureListener: ((String) -> Unit)? = null

@@ -1,12 +1,12 @@
 package com.simple.ghostvpn.repository
 
 import com.freetech.vpn.utils.VpnWhiteList
-import com.milk.simple.ktx.ioScope
-import com.milk.simple.mdr.KvManger
 import com.simple.ghostvpn.data.body.AppConfigRequestModel
 import com.simple.ghostvpn.network.OkhttpClient
 import com.simple.ghostvpn.network.api.MainApiService
 import com.simple.ghostvpn.network.retrofit
+import com.simple.ghostvpn.util.KvManger
+import com.simple.ghostvpn.util.ktx.ioScope
 
 object AppRepository {
     private val main: MainApiService =

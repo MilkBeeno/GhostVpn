@@ -1,7 +1,7 @@
 package com.simple.ghostvpn.util
 
 import android.os.CountDownTimer
-import com.milk.simple.ktx.mainScope
+import com.simple.ghostvpn.util.ktx.mainScope
 
 class MyTimer(private val builder: Builder) {
 

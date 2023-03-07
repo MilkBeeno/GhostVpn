@@ -3,11 +3,11 @@ package com.simple.ghostvpn
 import android.app.Application
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
-import com.milk.simple.log.Logger
-import com.milk.simple.mdr.KvManger
+import com.simple.ghostvpn.util.log.Logger
 import com.simple.ghostvpn.activity.LauncherActivity
 import com.simple.ghostvpn.activity.LottieActivity
 import com.simple.ghostvpn.util.BackgroundMonitor
+import com.simple.ghostvpn.util.KvManger
 
 class GhostApplication : Application() {
     override fun onCreate() {

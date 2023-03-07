@@ -8,9 +8,9 @@ import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.LinearLayoutCompat
-import com.milk.simple.ktx.immersiveStatusBar
-import com.milk.simple.ktx.statusBarPadding
 import com.simple.ghostvpn.R
+import com.simple.ghostvpn.util.ktx.immersiveStatusBar
+import com.simple.ghostvpn.util.ktx.statusBarPadding
 
 class MyActivity : AppCompatActivity(), OnClickListener {
     private lateinit var ivBack: AppCompatImageView

@@ -1,6 +1,6 @@
 package com.simple.ghostvpn.network.reteceptor
 
-import com.milk.simple.log.Logger
+import com.simple.ghostvpn.util.log.Logger
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
