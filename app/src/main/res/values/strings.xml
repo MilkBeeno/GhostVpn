@@ -18,4 +18,7 @@
     <string name="main_disconnect">Disconnect</string>
     <string name="main_connect">Connect</string>
     <string name="common_auto_connect">Auto Select</string>
+    <string name="common_please_wait">Please Wait</string>
+    <string name="dialog_disconnect_now">Disconnect Now</string>
+    <string name="dialog_connecting_now">Connecting Now</string>
 </resources>

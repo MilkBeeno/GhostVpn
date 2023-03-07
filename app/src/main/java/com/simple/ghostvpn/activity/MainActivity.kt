@@ -22,8 +22,12 @@ import com.freetech.vpn.data.VpnProfile
 import com.freetech.vpn.data.VpnType
 import com.freetech.vpn.logic.VpnStateService
 import com.simple.ghostvpn.R
+import com.simple.ghostvpn.ad.InterstitialAdHelper
 import com.simple.ghostvpn.ad.view.MainNativeAdView
 import com.simple.ghostvpn.data.VpnModel
+import com.simple.ghostvpn.dialog.ConnectFailureDialog
+import com.simple.ghostvpn.dialog.ConnectingDialog
+import com.simple.ghostvpn.dialog.DisconnectDialog
 import com.simple.ghostvpn.repository.AppRepository
 import com.simple.ghostvpn.repository.VpnRepository
 import com.simple.ghostvpn.util.MyTimer
@@ -49,6 +53,13 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private var vpnPing: Long = 0
     private var vpnIsConnected: Boolean = false
 
+    private var isConnecting: Boolean = false
+    private var notShowResultUi: Boolean = false
+
+    private val connectingDialog by lazy { ConnectingDialog(this) }
+    private val disconnectDialog by lazy { DisconnectDialog(this) }
+    private val connectFailureDialog by lazy { ConnectFailureDialog(this) }
+
     private var vpnService: VpnStateService? = null
     private var vpnServiceConnection: ServiceConnection? = null
     private var vpnStateListener: VpnStateService.VpnStateListener? = null
@@ -59,6 +70,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             getVpnProfile()
         }
     }
+
+    private val interstitialAdHelper by lazy { InterstitialAdHelper() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,28 +149,38 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 VpnStateService.ErrorState.NO_ERROR ->
                     when (vpnService?.state) {
                         VpnStateService.State.DISABLED -> {
-//                        if (isConnecting) {
-//                            Logger.d("连接 VPN 第六步：vpn 连接超时，断开连接 ", "代理VPN")
-//                            isConnecting = false
-//                        } else {
-//                            vpnStateChangedRequest?.invoke(VpnConnectState.DISCONNECT, true)
-//                        }
+                            vpnIsConnected = false
+                            isConnecting = false
+                            disconnect()
+                            if (notShowResultUi) {
+                                notShowResultUi = false
+                                Logger.d("VPN 断开不显示UI", "main_vpn")
+                            } else {
+                                showConnectResult(false)
+                                Logger.d("VPN 断开显示UI", "main_vpn")
+                            }
                         }
                         VpnStateService.State.CONNECTED -> {
-//                        isConnecting = false
-//                        vpnStateChangedRequest?.invoke(VpnConnectState.CONNECTED, true)
-                            Logger.d("连接 VPN 第五步：vpn 连接成功 ", "代理VPN")
+                            vpnIsConnected = true
+                            isConnecting = false
+                            connected()
+                            showConnectResult(true)
+                            Logger.d("VPN 连接成功", "main_vpn")
                         }
                         VpnStateService.State.CONNECTING -> {
-//                        isConnecting = true
-//                        Logger.d("连接 VPN 第四步：正在连接 vpn ", "代理VPN")
+                            isConnecting = true
+                            Logger.d("VPN 正在连接", "main_vpn")
                         }
                         else -> Unit
                     }
                 else -> {
-//                isConnecting = false
-//                vpnStateChangedRequest?.invoke(VpnConnectState.DISCONNECT, false)
-                    Logger.d("连接 VPN 第四步：vpn 连接发生错误 ", "代理VPN")
+                    vpnIsConnected = false
+                    notShowResultUi = false
+                    isConnecting = false
+                    disconnect()
+                    connectFailureDialog.show()
+                    connectingDialog.dismissAllowingStateLoss()
+                    Logger.d("VPN 连接错误", "main_vpn")
                 }
             }
         }
@@ -165,16 +188,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             val intent = Intent(this, VpnStateService::class.java)
             bindService(intent, it, VpnStateService.BIND_AUTO_CREATE)
         }
-    }
-
-    private fun vpnChangingState(connecting: Boolean) {
-//        binding.tvConnect.text = if (connecting) {
-//            string(R.string.main_connecting)
-//        } else {
-//            string(R.string.main_disconnecting)
-//        }
-//        binding.tvConnect.setBackgroundResource(R.drawable.shape_main_connected)
-//        binding.tvConnect.setTextColor(color(R.color.FF31FFDA))
     }
 
     private fun connected() {
@@ -201,6 +214,69 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         tvConnect.setTextColor(color(R.color.white))
     }
 
+    private fun showConnectResult(isConnected: Boolean) {
+        when {
+            isConnected && AppRepository.showConnectedInsertAd -> {
+                loadInterstitialAd(this) {
+                    showInsertAd(true)
+                }
+            }
+            !isConnected && AppRepository.showDisconnectInsertAd -> {
+                loadInterstitialAd(this) {
+                    showInsertAd(false)
+                }
+            }
+            else -> {
+                showInsertAd(isConnected)
+            }
+        }
+    }
+
+    private fun loadInterstitialAd(activity: Activity, finishRequest: () -> Unit) {
+        MyTimer.Builder()
+            .setMillisInFuture(12000)
+            .setOnFinishedListener {
+                if (!interstitialAdHelper.isShowSuccessfulAd()) {
+                    finishRequest()
+                }
+            }
+            .build()
+            .run()
+
+        interstitialAdHelper.load(
+            context = activity,
+            failure = {
+                finishRequest()
+            },
+            success = {
+                interstitialAdHelper.show(
+                    activity = activity,
+                    failure = {
+                        finishRequest()
+                    },
+                    success = {
+
+                    },
+                    click = {
+
+                    },
+                    close = {
+                        finishRequest()
+                    }
+                )
+            }
+        )
+    }
+
+    private fun showInsertAd(isConnected: Boolean) {
+        if (isConnected) {
+            connectingDialog.dismissAllowingStateLoss()
+        } else {
+            disconnectDialog.dismissAllowingStateLoss()
+        }
+        ConnectResultActivity.start(this, isConnected, vpnImage, vpnName, vpnPing)
+    }
+
     override fun onClick(v: View?) {
         when (v) {
             ivMenu -> {
@@ -215,8 +291,10 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             }
             ivConnect, tvConnect -> {
                 if (vpnIsConnected) {
-                    vpnChangingState(false)
-                    tvConnect.postDelayed({ closeVpn() }, 4000)
+                    disconnectDialog.show()
+                    tvConnect.postDelayed({
+                        vpnService?.disconnect()
+                    }, 4000)
                 } else {
                     tryOpenVpn()
                 }
@@ -228,23 +306,27 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         val prepare = VpnService.prepare(this)
         if (prepare == null) {
             getVpnProfile()
-            Logger.d("连接 VPN 第一步：vpn 已打开", "代理VPN")
         } else {
             activityResultLauncher.launch(prepare)
-            Logger.d("连接 VPN 第一步：去打开 vpn", "代理VPN")
         }
     }
 
     private fun getVpnProfile() {
+        connectingDialog.show()
         launch {
             val response = VpnRepository.getVpnInfo(vpnNodeId)
             val result = response.data
             withMain {
                 if (response.code == 2000 && result != null) {
+                    if (vpnIsConnected) {
+                        notShowResultUi = true
+                        vpnService?.disconnect()
+                    }
                     connectVpn(convertVpnProfile(result))
                 } else {
                     tvConnect.postDelayed({
-                        // 加载失败
+                        connectFailureDialog.show()
+                        connectingDialog.dismissAllowingStateLoss()
                     }, 4000)
                 }
             }
@@ -264,37 +346,26 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun connectVpn(vpnProfile: VpnProfile) {
-        Logger.d("连接 VPN 第二步：进行 vpn 的连接", "代理VPN")
-        //if (isConnecting) {
-        //     return
-        //   }
-        //  isConnecting = true
+        if (isConnecting) return
+        isConnecting = true
         // 设置默认一分钟未连上为超时操作
         MyTimer.Builder()
             .setCountDownInterval(1000)
             .setMillisInFuture(15 * 1000)
             .setOnFinishedListener {
-//                if (isConnecting) {
-//                    vpnStateChangedRequest?.invoke(VpnConnectState.DISCONNECT, false)
-//                    Logger.d("连接 VPN 第五步：vpn 连接超时 ", "代理VPN")
-//                    vpnService?.disconnect()
-//                }
+                if (isConnecting) {
+                    notShowResultUi = true
+                    vpnService?.disconnect()
+                    connectFailureDialog.show()
+                    connectingDialog.dismissAllowingStateLoss()
+                }
             }
             .build()
             .run()
-        if (vpnIsConnected) {
-            Logger.d("连接 VPN 第三步：原已连接 vpn 先关闭当前 vpn", "代理VPN")
-            vpnService?.disconnect()
-        }
         val profileInfo = Bundle()
         profileInfo.putSerializable(PROFILE, vpnProfile)
         profileInfo.putInt(G_ID, vpnProfile.id.toInt())
         vpnService?.connect(profileInfo, true)
-    }
-
-    private fun closeVpn() {
-        vpnService?.disconnect()
-        Logger.d("断开 VPN 第一步：vpn 开始断开 ", "代理VPN")
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
