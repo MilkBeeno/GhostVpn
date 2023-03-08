@@ -21,4 +21,8 @@
     <string name="common_please_wait">Please Wait</string>
     <string name="dialog_disconnect_now">Disconnect Now</string>
     <string name="dialog_connecting_now">Connecting Now</string>
+    <string name="connect_result_vpn_name_tage">Vpn Server</string>
+    <string name="connect_result_vpn_ping">Speed</string>
+    <string name="connect_result_connected">Connected</string>
+    <string name="connect_result_disconnect">Disconnect</string>
 </resources>

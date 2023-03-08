@@ -8,7 +8,11 @@
     <color name="FF333333_50">#50333333</color>
     <color name="FFB3B3B3">#FFB3B3B3</color>
     <color name="FF1754FD">#FF1754FD</color>
+    <color name="FF1754FD_40">#661754FD</color>
     <color name="FF808080">#FF808080</color>
     <color name="FF232A33">#FF232A33</color>
     <color name="FF999999">#FF999999</color>
+    <color name="FF0273FC_10">#1A0273FC</color>
+    <color name="FFE56E00">#FFE56E00</color>
+    <color name="FF4CB600">#FF4CB600</color>
 </resources>
