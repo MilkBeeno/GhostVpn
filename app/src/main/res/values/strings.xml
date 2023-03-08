@@ -1,4 +1,9 @@
 <resources>
+    <!-- Facebook 推广相关 -->
+    <string name="facebook_app_id">508336674804558</string>
+    <string name="facebook_client_token">e2c109e9970eef58bf437c74fea9d500</string>
+    <string name="fb_login_protocol_scheme">fb508336674804558</string>
+
     <string name="app_name">GhostVpn</string>
     <string name="launcher_tip">GhostProxy</string>
     <string name="launcher_start">Start</string>

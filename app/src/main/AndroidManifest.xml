@@ -18,8 +18,9 @@
         <!-- =================================================================== -->
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true" /> <!-- Admob 测试服 ID : ca-app-pub-3940256099942544~3347511713 -->
-        <!-- Admob 正试服 ID : ca-app-pub-4684374725464850~3495272708 -->
+            android:value="true" />
+        <!-- Admob 测试服 ID : ca-app-pub-3940256099942544~3347511713 -->
+        <!-- Admob 正试服 ID : ca-app-pub-2897415135558854~1103888988 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
@@ -31,6 +32,32 @@
             android:theme="@style/Theme.GhostVpn"
             tools:ignore="LockedOrientationActivity"
             tools:replace="android:theme" />
+        <!-- =================================================================== -->
+        <!-- Facebook 推广相关信息 -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            tools:ignore="RedundantLabel" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
         <!-- =================================================================== -->
         <activity
             android:name=".activity.VpnListActivity"

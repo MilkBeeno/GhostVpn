@@ -91,4 +91,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
     // liveEventBus 事件通知
     implementation 'io.github.jeremyliao:live-event-bus-x:1.8.0'
+    // facebook 推广
+    implementation "com.facebook.android:facebook-android-sdk:14.0.0"
+    implementation "com.facebook.android:audience-network-sdk:6.11.0"
 }

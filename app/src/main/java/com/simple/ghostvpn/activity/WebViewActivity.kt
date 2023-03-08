@@ -37,7 +37,7 @@ class WebViewActivity : AppCompatActivity() {
 
     companion object {
         private const val URL =
-            "https://res.openvpnsafeconnect.com/PrivacyPolicy.html"
+            "https://res.ghostproxyghost.com/PrivacyPolicy.html"
         fun start(context: Context) {
             context.startActivity(Intent(context, WebViewActivity::class.java))
         }
