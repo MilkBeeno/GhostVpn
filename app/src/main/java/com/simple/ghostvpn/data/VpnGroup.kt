@@ -18,7 +18,6 @@ class VpnGroup : ItemExpand, ItemHover, ItemPosition, ItemBind {
     var areaImage: String = ""
     var areaName: String = ""
     var isSelect: Boolean = false
-    var isAutoSelectItem: Boolean = false
     override var itemExpand: Boolean = false
     override var itemGroupPosition: Int = 0
     override var itemSublist: List<Any?>? = null

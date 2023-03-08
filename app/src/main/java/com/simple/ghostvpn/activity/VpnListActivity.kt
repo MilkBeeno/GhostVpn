@@ -61,9 +61,9 @@ class VpnListActivity : AppCompatActivity(), View.OnClickListener {
             if (response.code == 2000 && result != null) {
                 val groups = arrayListOf<VpnGroup>()
                 groups.add(VpnGroup().apply {
-                    if (vpnNodeId <= 0)
-                        isSelect = vpnConnect
-                    isAutoSelectItem = true
+                    if (vpnNodeId <= 0) {
+                        isSelect = true
+                    }
                 })
                 val map = result.groupBy { it.areaCode }
                 map.forEach {
@@ -83,8 +83,9 @@ class VpnListActivity : AppCompatActivity(), View.OnClickListener {
                             node.itemSize = vpnListModels.size
                             node.position = index
                             // 有一个匹配上表示已经连接过
-                            if (vpnListModel.nodeId == vpnNodeId)
+                            if (vpnListModel.nodeId == vpnNodeId) {
                                 group.isSelect = true
+                            }
                             nodes.add(node)
                         }
                         group.itemSublist = nodes
@@ -129,15 +130,15 @@ class VpnListActivity : AppCompatActivity(), View.OnClickListener {
                             .post(
                                 arrayListOf(
                                     node.nodeId.toString(),
-                                    node.areaImage,
                                     node.areaName,
+                                    node.areaImage,
                                     node.ping.toString()
                                 )
                             )
                     }
                     else -> {
                         LiveEventBus.get<ArrayList<String>>(KvKey.SWITCH_VPN_NODE)
-                            .post(arrayListOf("0", "", "", "-1"))
+                            .post(arrayListOf("0", "", "", "0"))
                     }
                 }
                 finish()
@@ -149,8 +150,8 @@ class VpnListActivity : AppCompatActivity(), View.OnClickListener {
                     .post(
                         arrayListOf(
                             node.nodeId.toString(),
-                            node.areaImage,
                             node.areaName,
+                            node.areaImage,
                             node.ping.toString()
                         )
                     )

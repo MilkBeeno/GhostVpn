@@ -46,15 +46,15 @@ class ConnectingDialog(private val act: FragmentActivity) : DialogFragment() {
     }
 
     fun show() {
-        val fm = act.supportFragmentManager
-        val prev = fm.findFragmentByTag("Connecting")
-        if (prev != null) {
-            val ft = fm.beginTransaction()
-            ft.remove(prev)
-            ft.commitAllowingStateLoss()
-        }
         try {
-            super.show(fm, "Connecting")
+            val fm = act.supportFragmentManager
+            val prev = fm.findFragmentByTag("Connecting")
+            val ft = fm.beginTransaction()
+            if (prev != null) {
+                ft.remove(prev)
+            }
+            ft.add(this, "Connecting")
+            ft.commitAllowingStateLoss()
         } catch (e: IllegalStateException) {
             e.printStackTrace()
         }

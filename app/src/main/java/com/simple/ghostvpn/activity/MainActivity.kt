@@ -21,9 +21,11 @@ import com.bumptech.glide.Glide
 import com.freetech.vpn.data.VpnProfile
 import com.freetech.vpn.data.VpnType
 import com.freetech.vpn.logic.VpnStateService
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.simple.ghostvpn.R
 import com.simple.ghostvpn.ad.InterstitialAdHelper
 import com.simple.ghostvpn.ad.view.MainNativeAdView
+import com.simple.ghostvpn.constant.KvKey
 import com.simple.ghostvpn.data.VpnDetailModel
 import com.simple.ghostvpn.dialog.ConnectFailureDialog
 import com.simple.ghostvpn.dialog.ConnectingDialog
@@ -78,6 +80,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         setContentView(R.layout.activity_main)
         initView()
         initNativeAd()
+        initObserver()
         updateCountryInfo()
         bindVpnService()
         disconnect()
@@ -117,6 +120,21 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 Logger.d("点击了 Main Native 广告", "nativeAdLog")
             }
             nativeAdView.loadNativeAd()
+        }
+    }
+
+    private fun initObserver() {
+        LiveEventBus.get<ArrayList<String>>(KvKey.SWITCH_VPN_NODE).observe(this) {
+            try {
+                vpnNodeId = it[0].toLong()
+                vpnName = it[1]
+                vpnImage = it[2]
+                vpnPing = it[3].toLong()
+                updateCountryInfo()
+                getVpnProfile()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

@@ -46,15 +46,15 @@ class DisconnectDialog(private val act: FragmentActivity) : DialogFragment() {
     }
 
     fun show() {
-        val fm = act.supportFragmentManager
-        val prev = fm.findFragmentByTag("DisConnect")
-        if (prev != null) {
-            val ft = fm.beginTransaction()
-            ft.remove(prev)
-            ft.commitAllowingStateLoss()
-        }
         try {
-            super.show(fm, "DisConnect")
+            val fm = act.supportFragmentManager
+            val prev = fm.findFragmentByTag("DisConnect")
+            val ft = fm.beginTransaction()
+            if (prev != null) {
+                ft.remove(prev)
+            }
+            ft.add(this, "DisConnect")
+            ft.commitAllowingStateLoss()
         } catch (e: IllegalStateException) {
             e.printStackTrace()
         }
