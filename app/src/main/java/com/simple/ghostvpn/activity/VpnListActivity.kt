@@ -33,7 +33,6 @@ class VpnListActivity : AppCompatActivity(), View.OnClickListener {
 
     private val random by lazy { Random() }
     private val vpnNodeId by lazy { intent.getLongExtra(VPN_NODE_ID, 0) }
-    private val vpnConnect by lazy { intent.getBooleanExtra(VPN_CONNECT, false) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -189,11 +188,9 @@ class VpnListActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         private const val VPN_NODE_ID = "VPN_NODE_ID"
-        private const val VPN_CONNECT = "VPN_CONNECT"
-        fun start(context: Context, vpnNodeId: Long, vpnConnect: Boolean) {
+        fun start(context: Context, vpnNodeId: Long) {
             val intent = Intent(context, VpnListActivity::class.java)
             intent.putExtra(VPN_NODE_ID, vpnNodeId)
-            intent.putExtra(VPN_CONNECT, vpnConnect)
             context.startActivity(intent)
         }
     }

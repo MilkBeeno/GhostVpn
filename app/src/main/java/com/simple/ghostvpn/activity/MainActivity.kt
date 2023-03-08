@@ -302,7 +302,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 MyActivity.start(this)
             }
             clSwitch -> {
-                VpnListActivity.start(this, vpnNodeId, vpnConnect)
+                VpnListActivity.start(this, vpnNodeId)
             }
             ivShare -> {
                 val intent = Intent()
