@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         // 测试服包：com.milk.GhostProxyvpn 正式服包：com.simple.GhostProxyvpn
-        applicationId "com.milk.GhostProxyvpn"
+        applicationId "com.simple.GhostProxyvpn"
         minSdk 21
         targetSdk 33
         versionCode 1

@@ -23,7 +23,7 @@
         <!-- Admob 正试服 ID : ca-app-pub-2897415135558854~1103888988 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-2897415135558854~1103888988" />
 
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
