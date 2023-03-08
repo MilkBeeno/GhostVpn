@@ -10,7 +10,7 @@
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginBottom="19dp"
-        android:background="@drawable/shape_native_ad_background"
+        android:background="@drawable/shape_native_ad_main_background"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -95,7 +95,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_marginEnd="14dp"
                 android:layout_marginBottom="14dp"
-                android:background="@drawable/shape_native_ad_view_cta_background"
+                android:background="@drawable/shape_native_ad_view_click_background"
                 android:gravity="center"
                 android:lines="1"
                 android:text="OPEN"

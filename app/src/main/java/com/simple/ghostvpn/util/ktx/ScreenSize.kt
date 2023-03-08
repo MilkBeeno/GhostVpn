@@ -9,37 +9,6 @@ import android.util.DisplayMetrics
 import android.view.WindowInsets
 
 /**
- *   获取屏幕的宽度
- * - [WindowInsetsCompat.Type.statusBars()]      状态栏
- * - [WindowInsetsCompat.Type.navigationBars()]  底部导航栏
- * - [WindowInsetsCompat.Type.captionBar()]      标题栏
- * - [WindowInsetsCompat.Type.systemBars()]      前三者全部
- */
-fun Activity.obtainScreenWidth(): Int {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        val windowMetrics = windowManager.currentWindowMetrics
-        val bounds: Rect = windowMetrics.bounds
-        val insets: Insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(
-            WindowInsets.Type.systemBars()
-        )
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-            && resources.configuration.smallestScreenWidthDp < 600
-        ) {
-            // landscape and phone
-            val navigationBarSize: Int = insets.right + insets.left
-            bounds.width() - navigationBarSize
-        } else {
-            // portrait or tablet
-            bounds.width()
-        }
-    } else {
-        val outMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(outMetrics)
-        outMetrics.widthPixels
-    }
-}
-
-/**
  *   获取屏幕的高度、不包括状态栏和导航栏高度
  * - [WindowInsetsCompat.Type.statusBars()]      状态栏
  * - [WindowInsetsCompat.Type.navigationBars()]  底部导航栏

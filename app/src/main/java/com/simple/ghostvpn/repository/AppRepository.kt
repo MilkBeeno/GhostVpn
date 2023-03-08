@@ -67,7 +67,7 @@ object AppRepository {
             field = KvManger.getBoolean("showDisconnectNativeAd")
             return field
         }
-    var showSwitchNativeAd: Boolean = true
+    var showVpnListNativeAd: Boolean = true
         set(value) {
             KvManger.put("showSwitchNativeAd", value)
             field = value
@@ -96,7 +96,7 @@ object AppRepository {
                     showConnectedNativeAd = apiResult.connectedNativeAd.toInt() == 1
                     showDisconnectInsertAd = apiResult.disconnectInsertAd.toInt() == 1
                     showDisconnectNativeAd = apiResult.disconnectNativeAd.toInt() == 1
-                    showSwitchNativeAd = apiResult.switchNativeAd.toInt() == 1
+                    showVpnListNativeAd = apiResult.vpnListNativeAd.toInt() == 1
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

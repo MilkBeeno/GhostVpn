@@ -25,4 +25,5 @@
     <string name="connect_result_vpn_ping">Speed</string>
     <string name="connect_result_connected">Connected</string>
     <string name="connect_result_disconnect">Disconnect</string>
+    <string name="vpn_list_title">Change Server</string>
 </resources>

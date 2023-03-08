@@ -51,10 +51,10 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private var vpnName: String = ""
     private var vpnImage: String = ""
     private var vpnPing: Long = 0
-    private var vpnIsConnected: Boolean = false
+    private var vpnConnect: Boolean = false
 
-    private var isConnecting: Boolean = false
-    private var notShowResultUi: Boolean = false
+    private var vpnConnecting: Boolean = false
+    private var notShowResultUI: Boolean = false
 
     private val connectingDialog by lazy { ConnectingDialog(this) }
     private val disconnectDialog by lazy { DisconnectDialog(this) }
@@ -106,14 +106,15 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     private fun initNativeAd() {
         if (AppRepository.showMainNativeAd) {
+            Logger.d("开始请求 Main Native 广告", "nativeAdLog")
             nativeAdView.setLoadFailureRequest {
-
+                Logger.d("请求失败 Main Native 广告", "nativeAdLog")
             }
             nativeAdView.setLoadSuccessRequest {
-
+                Logger.d("请求成功 Main Native 广告", "nativeAdLog")
             }
             nativeAdView.setClickRequest {
-
+                Logger.d("点击了 Main Native 广告", "nativeAdLog")
             }
             nativeAdView.loadNativeAd()
         }
@@ -149,11 +150,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 VpnStateService.ErrorState.NO_ERROR ->
                     when (vpnService?.state) {
                         VpnStateService.State.DISABLED -> {
-                            vpnIsConnected = false
-                            isConnecting = false
+                            vpnConnect = false
+                            vpnConnecting = false
                             disconnect()
-                            if (notShowResultUi) {
-                                notShowResultUi = false
+                            if (notShowResultUI) {
+                                notShowResultUI = false
                                 Logger.d("VPN 断开不显示UI", "main_vpn")
                             } else {
                                 showConnectResult(false)
@@ -161,22 +162,22 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                             }
                         }
                         VpnStateService.State.CONNECTED -> {
-                            vpnIsConnected = true
-                            isConnecting = false
+                            vpnConnect = true
+                            vpnConnecting = false
                             connected()
                             showConnectResult(true)
                             Logger.d("VPN 连接成功", "main_vpn")
                         }
                         VpnStateService.State.CONNECTING -> {
-                            isConnecting = true
+                            vpnConnecting = true
                             Logger.d("VPN 正在连接", "main_vpn")
                         }
                         else -> Unit
                     }
                 else -> {
-                    vpnIsConnected = false
-                    notShowResultUi = false
-                    isConnecting = false
+                    vpnConnect = false
+                    notShowResultUI = false
+                    vpnConnecting = false
                     disconnect()
                     connectFailureDialog.show()
                     connectingDialog.dismissAllowingStateLoss()
@@ -282,6 +283,9 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             ivMenu -> {
                 MyActivity.start(this)
             }
+            clSwitch -> {
+                VpnListActivity.start(this, vpnNodeId, vpnConnect)
+            }
             ivShare -> {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
@@ -290,7 +294,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 startActivity(intent)
             }
             ivConnect, tvConnect -> {
-                if (vpnIsConnected) {
+                if (vpnConnect) {
                     disconnectDialog.show()
                     tvConnect.postDelayed({
                         vpnService?.disconnect()
@@ -318,8 +322,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             val result = response.data
             withMain {
                 if (response.code == 2000 && result != null) {
-                    if (vpnIsConnected) {
-                        notShowResultUi = true
+                    if (vpnConnect) {
+                        notShowResultUI = true
                         vpnService?.disconnect()
                     }
                     connectVpn(convertVpnProfile(result))
@@ -346,15 +350,15 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun connectVpn(vpnProfile: VpnProfile) {
-        if (isConnecting) return
-        isConnecting = true
+        if (vpnConnecting) return
+        vpnConnecting = true
         // 设置默认一分钟未连上为超时操作
         MyTimer.Builder()
             .setCountDownInterval(1000)
             .setMillisInFuture(15 * 1000)
             .setOnFinishedListener {
-                if (isConnecting) {
-                    notShowResultUi = true
+                if (vpnConnecting) {
+                    notShowResultUI = true
                     vpnService?.disconnect()
                     connectFailureDialog.show()
                     connectingDialog.dismissAllowingStateLoss()

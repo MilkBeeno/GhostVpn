@@ -20,5 +20,5 @@ data class AppConfigModel(
     @SerializedName("vvvdc328")
     var disconnectNativeAd: String = "",
     @SerializedName("vvvdc329")
-    var switchNativeAd: String = "",
+    var vpnListNativeAd: String = "",
 )

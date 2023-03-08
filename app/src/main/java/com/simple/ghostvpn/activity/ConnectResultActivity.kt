@@ -12,6 +12,7 @@ import com.simple.ghostvpn.R
 import com.simple.ghostvpn.ad.view.ConnectResultNativeAdView
 import com.simple.ghostvpn.repository.AppRepository
 import com.simple.ghostvpn.util.ktx.*
+import com.simple.ghostvpn.util.log.Logger
 
 class ConnectResultActivity : AppCompatActivity() {
     private lateinit var ivBack: AppCompatImageView
@@ -75,30 +76,32 @@ class ConnectResultActivity : AppCompatActivity() {
         nativeView.navigationBarPadding()
         nativeView.setLoadFailureRequest {
             if (isConnected) {
-
+                Logger.d("开始失败 Connect Result Native 广告", "nativeAdLog")
             } else {
-
+                Logger.d("开始失败 DisConnect Result Native 广告", "nativeAdLog")
             }
         }
         nativeView.setLoadSuccessRequest {
             if (isConnected) {
-
+                Logger.d("开始成功 Connect Result Native 广告", "nativeAdLog")
             } else {
-
+                Logger.d("开始成功 DisConnect Result Native 广告", "nativeAdLog")
             }
         }
         nativeView.setClickRequest {
             if (isConnected) {
-
+                Logger.d("点击了 Connect Result Native 广告", "nativeAdLog")
             } else {
-
+                Logger.d("点击了 DisConnect Result Native 广告", "nativeAdLog")
             }
         }
         when {
             isConnected && AppRepository.showConnectedNativeAd -> {
+                Logger.d("开始请求 Connect Result Native 广告", "nativeAdLog")
                 nativeView.loadNativeAd()
             }
             !isConnected && AppRepository.showDisconnectNativeAd -> {
+                Logger.d("开始请求 DisConnect Result Native 广告", "nativeAdLog")
                 nativeView.loadNativeAd()
             }
         }
