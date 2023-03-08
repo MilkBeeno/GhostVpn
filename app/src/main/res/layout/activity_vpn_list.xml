@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="42dp">
 
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivBack"
             android:layout_width="42dp"

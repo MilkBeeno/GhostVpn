@@ -3,7 +3,7 @@ package com.simple.ghostvpn.data
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class VpnModel(
+data class VpnDetailModel(
     @SerializedName("b01")
     val nodeId: Long = 0,
     @SerializedName("b02")

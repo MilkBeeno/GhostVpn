@@ -24,7 +24,7 @@ import com.freetech.vpn.logic.VpnStateService
 import com.simple.ghostvpn.R
 import com.simple.ghostvpn.ad.InterstitialAdHelper
 import com.simple.ghostvpn.ad.view.MainNativeAdView
-import com.simple.ghostvpn.data.VpnModel
+import com.simple.ghostvpn.data.VpnDetailModel
 import com.simple.ghostvpn.dialog.ConnectFailureDialog
 import com.simple.ghostvpn.dialog.ConnectingDialog
 import com.simple.ghostvpn.dialog.DisconnectDialog
@@ -337,13 +337,13 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun convertVpnProfile(vpnModel: VpnModel): VpnProfile {
+    private fun convertVpnProfile(vpnDetailModel: VpnDetailModel): VpnProfile {
         val vpnProfile = VpnProfile()
-        vpnProfile.id = vpnModel.nodeId
-        vpnProfile.name = vpnModel.nodeName
-        vpnProfile.gateway = vpnModel.dns
-        vpnProfile.username = vpnModel.userName
-        vpnProfile.password = vpnModel.password
+        vpnProfile.id = vpnDetailModel.nodeId
+        vpnProfile.name = vpnDetailModel.nodeName
+        vpnProfile.gateway = vpnDetailModel.dns
+        vpnProfile.username = vpnDetailModel.userName
+        vpnProfile.password = vpnDetailModel.password
         vpnProfile.mtu = 1400
         vpnProfile.vpnType = VpnType.fromIdentifier("ikev2-eap")
         return vpnProfile

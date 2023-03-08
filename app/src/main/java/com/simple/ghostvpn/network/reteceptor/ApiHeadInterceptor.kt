@@ -23,9 +23,9 @@ class ApiHeadInterceptor : Interceptor {
             finalUrl = finalUrl.plus(sortParams)
             requestBuilder.url(finalUrl)
             val packageName = if (BuildConfig.DEBUG) {
-                "com.milk.openvpn.safeconnect"
+                "com.milk.GhostProxyvpn"
             } else {
-                "com.milk.simple.openvpn.safeconnect"
+                "com.simple.GhostProxyvpn"
             }
             headerBuilder
                 .add("H007", "1")

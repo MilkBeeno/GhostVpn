@@ -89,4 +89,6 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.6.1"
     // Kotlin coroutines 依赖库
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    // liveEventBus 事件通知
+    implementation 'io.github.jeremyliao:live-event-bus-x:1.8.0'
 }
