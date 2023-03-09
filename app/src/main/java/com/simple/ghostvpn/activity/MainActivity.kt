@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private var vpnService: VpnStateService? = null
     private var vpnServiceConnection: ServiceConnection? = null
     private var vpnStateListener: VpnStateService.VpnStateListener? = null
+    private var currentTime: Long = 0
 
     private val contract = ActivityResultContracts.StartActivityForResult()
     private val activityResultLauncher = registerForActivityResult(contract) {
@@ -234,6 +235,23 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun showConnectResult(isConnected: Boolean) {
+        if (isConnected) {
+
+            when ((System.currentTimeMillis() - currentTime)) {
+                in 0L until 3000L -> {
+
+                }
+                in 3L until 8000L -> {
+
+                }
+                in 8L until 15000L -> {
+
+                }
+                else -> {
+
+                }
+            }
+        }
         when {
             isConnected && AppRepository.showConnectedInsertAd -> {
                 loadInterstitialAd(this) {
