@@ -12,23 +12,23 @@ import android.widget.TextView
 
 fun TextView.setSpannableClick(vararg targets: Pair<String, ClickableSpan>) {
     try {
-        if (text.toString().trim().isBlank()) return
         val content = text.toString()
-        val builder = SpannableStringBuilder(content)
-        targets.forEach {
-            if (content.contains(it.first)) {
-                var startIndex = content.indexOf(it.first, ignoreCase = true)
-                startIndex = if (startIndex < 0) 0 else startIndex
-                val endIndex = startIndex + it.first.length
-                val colorFlags = Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-                if (startIndex > 0 && endIndex < content.length && startIndex != endIndex) {
-                    builder.setSpan(it.second, startIndex, endIndex, colorFlags)
+        if (content.isNotBlank()) {
+            val builder = SpannableStringBuilder(content)
+            targets.forEach {
+                if (content.contains(it.first)) {
+                    val startIndex = content.indexOf(it.first, ignoreCase = true)
+                    val endIndex = startIndex + it.first.length
+                    if (startIndex >= 0 && endIndex < content.length && startIndex < endIndex) {
+                        val colorFlags = Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                        builder.setSpan(it.second, startIndex, endIndex, colorFlags)
+                    }
                 }
             }
+            movementMethod = LinkMovementMethod.getInstance()
+            highlightColor = Color.TRANSPARENT
+            text = builder
         }
-        movementMethod = LinkMovementMethod.getInstance()
-        highlightColor = Color.TRANSPARENT
-        text = builder
     } catch (e: Exception) {
         e.printStackTrace()
     }
